@@ -5,13 +5,15 @@ import axios from "axios";
 
 
 function App() {
-  const [text, setText] = useState("0");
+  const [text, setText] = useState("1");
+  const [style,setStyle] = useState({color:text % 2 ? "red" : "white"});
 
   const handleClick = () => {
     axios.get("http://127.0.0.1:8000/test?id="+text).then((res) => {
       console.log(text);
       console.log(res);
       setText(res.data);
+      setStyle({color:text % 2 ? "red" : "white"})
     });
   };
   return (
@@ -21,7 +23,7 @@ function App() {
         <button type="button" onClick={handleClick}>
           PUSH!!
         </button>
-        <h1>{text}</h1>
+        <h1 style={style}>{text}</h1>
       </header>
     </div>
   );
